@@ -9,14 +9,15 @@ jobs:
         platform: [ubuntu-latest]
     runs-on: ${{ matrix.platform }}
     steps:
-    - name: Install Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: ${{ matrix.go-version }}
     - name: Checkout code
       uses: actions/checkout@v2
     - name: Test
+      id: test
       run: |
         set -o pipefail
         echo hello | xargs ./echofail.sh | tee results.txt
         echo "::set-output name=action_fruit::$(cat results.txt)"
+    - name: Echo
+      if: ${{ always() }}
+      run: |
+        echo ${{ steps.run_tests.outputs.action_fruit }}
