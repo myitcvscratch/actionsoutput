@@ -16,6 +16,10 @@ jobs:
       run: |
         set -o pipefail
         echo hello | xargs ./echofail.sh | tee results.txt
+        content="$(cat results.txt)"
+        content="${content//'%'/'%25'}"
+        content="${content//$'\n'/'%0A'}"
+        content="${content//$'\r'/'%0D'}"
         echo "::set-output name=action_fruit::$(cat results.txt)"
     - name: Echo
       if: ${{ always() }}
