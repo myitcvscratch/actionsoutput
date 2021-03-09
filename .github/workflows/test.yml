@@ -21,4 +21,4 @@ jobs:
       if: ${{ always() }}
       run: |
         env
-        echo ${{ steps.run_tests.outputs.action_fruit }}
+        echo ${{ steps.test.outputs.action_fruit }}
