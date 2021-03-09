@@ -20,4 +20,5 @@ jobs:
     - name: Echo
       if: ${{ always() }}
       run: |
+        env
         echo ${{ steps.run_tests.outputs.action_fruit }}
